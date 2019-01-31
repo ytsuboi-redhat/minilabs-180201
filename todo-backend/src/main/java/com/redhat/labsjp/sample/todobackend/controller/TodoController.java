@@ -52,7 +52,7 @@ public class TodoController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "{todoId}")
-    public void putTodo(@PathVariable Long todoId) {
+    public void deleteTodo(@PathVariable Long todoId) {
         todoService.deleteTodo(todoId);
     }
 }

@@ -223,7 +223,7 @@ public class TodoControllerTest {
         when(todoService.saveTodo(Mockito.any())).thenReturn(null);
 
         mockMvc.perform(
-                put("/todos").contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(todo)))
+                put("/todos/{todoId}", 1l).contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(todo)))
                 .andExpect(status().isBadRequest()).andExpect(content()
                         .json(mapper.writeValueAsString(new ErrorResponse("E001", "input arguments not valid!"))));
 
@@ -237,7 +237,7 @@ public class TodoControllerTest {
         when(todoService.saveTodo(Mockito.any())).thenReturn(null);
 
         mockMvc.perform(
-                put("/todos").contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(todo)))
+                put("/todos/{todoId}", 1l).contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(todo)))
                 .andExpect(status().isBadRequest()).andExpect(content()
                         .json(mapper.writeValueAsString(new ErrorResponse("E001", "input arguments not valid!"))));
 
@@ -250,7 +250,7 @@ public class TodoControllerTest {
         doThrow(RuntimeException.class).when(todoService).saveTodo(todo);
 
         mockMvc.perform(
-                put("/todos").contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(todo)))
+                put("/todos/{todoId}", 1l).contentType(MediaType.APPLICATION_JSON_UTF8).content(mapper.writeValueAsString(todo)))
                 .andExpect(status().isInternalServerError())
                 .andExpect(content().json(mapper.writeValueAsString(new ErrorResponse("E999", "Exception occured!!"))));
     }
