@@ -19,11 +19,13 @@ services:
      - todo-mysql
     entrypoint: ./wait-for-it.sh todo-mysql:3306 -- java -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=container -jar /app.jar
   todo-frontend:
-    build: "./todo-frontend"
+    build:
+      context: ./todo-frontend
+      dockerfile: Dockerfile.local
     container_name: "todo-frontend"
     ports:
      - "80:80"
-    volumes:
-     - ./todo-frontend/dist:/usr/share/nginx/html/
     depends_on: 
      - todo-backend
+    volumes:
+     - ./todo-frontend/dist:/usr/share/nginx/html
